@@ -5,17 +5,18 @@
  */
 
 #include <iostream>
+#include <cstring>
 using namespace std;
 
 struct Student {
-  char firstName[50]; //max char count for student name is 50
-  char lastName[50]; //max char count for last name is 50
+  char firstName[20]; //max char count for student name is 20
+  char lastName[20]; //max char count for last name is 20
   int studentID = 0;
   float GPA = 0.00;
 };
 
-
 int main(){
+  
   char command[6]; //6 is max amount of letters for this set of commands ("DELETE")
   char commandChar = 'c';
   cout << "Welcome to Student List. Would you like to hear a list of commands? (Y/N)" << endl;
@@ -37,20 +38,58 @@ int main(){
     
     while (command != "QUIT"){
       if (command == "ADD"){
-
-
+	add();
       }
       else if (command == "PRINT"){
-
-
+	print();
       }
       else if (command == "DELETE"){
-
-
+	delete();
       }
     }
     //terminate program (command = QUIT)
-
-  }
   return 0;
+}
+
+
+void add(){
+  
+  //create new struct
+  Student student1;
+  struct* structPtr = &student1;
+  vector<Student> structVtr = &structPtr;
+  vector* vectorPtr = &structPtr;
+  
+  //prompt first name
+  cout << "Enter first name: " << endl;
+  cin.get(name, 20);
+  cin.get();
+  Student.firstName = name;
+  
+  //prompt last name
+  cout << "Enter last name: " << endl;
+
+  //prompt student id
+  cout << "Enter student id: " << endl;
+
+  //prompt GPA
+  cout << "Enter GPA: " << endl;
+  
+
+  
+  return;
+}
+
+void print(){
+
+
+  
+  return;
+}
+
+void delete(){
+
+
+  
+  return;
 }
