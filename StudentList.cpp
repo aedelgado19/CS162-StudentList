@@ -19,14 +19,14 @@ struct Student {
 };
 
 
-void addStudent(vector<Student> *vtpr);
-void deleteStudent(vector<Student> *vtpr);
-void printStudent(vector<Student> *vtpr);
+void addStudent(vector<Student> *vptr);
+void deleteStudent(vector<Student> *vptr);
+void printStudent(vector<Student> *vptr);
 void quit();
 
 
 //add a new student
-void addStudent(vector<struct Student> *vtpr){
+void addStudent(vector<Student> *vptr){
 
   Student *student = new Student;
   char firstName[20];
@@ -39,6 +39,7 @@ void addStudent(vector<struct Student> *vtpr){
   cin.get(firstName, 20);
   cin.get();
   strcpy(student->firstName, firstName); //destination, source
+
   
   //prompt last name
   cout << "Enter last name: " << endl;
@@ -57,13 +58,13 @@ void addStudent(vector<struct Student> *vtpr){
   student->GPA = gpa;
 
   //add to vector pointer
-  vptr->push_back(student);
+  vptr->push_back(*student);
   
   return;
 }
 
 //print out existing students
-void printStudent(vector <Student> *vtpr){
+void printStudent(vector <Student> *vptr){
 
 
   
@@ -71,7 +72,7 @@ void printStudent(vector <Student> *vtpr){
 }
 
 //delete an existing student
-void deleteStudent(vector <Student> *vtpr){
+void deleteStudent(vector <Student> *vptr){
 
 
   
