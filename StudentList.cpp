@@ -22,28 +22,42 @@ struct Student {
 void addStudent(vector<Student> *vtpr);
 void deleteStudent(vector<Student> *vtpr);
 void printStudent(vector<Student> *vtpr);
+void quit();
+
 
 //add a new student
 void addStudent(vector<struct Student> *vtpr){
 
   Student *student = new Student;
-
+  char firstName[20];
+  char lastName[20];
+  int id = 0;
+  float gpa = 0.00;
   
   //prompt first name
   cout << "Enter first name: " << endl;
-  
-  
+  cin.get(firstName, 20);
+  cin.get();
+  strcpy(student->firstName, firstName); //destination, source
   
   //prompt last name
   cout << "Enter last name: " << endl;
-
+  cin.get(lastName, 20);
+  cin.get();
+  strcpy(student->lastName, lastName); //destination, source
+  
   //prompt student id
   cout << "Enter student id: " << endl;
-
+  cin >> id;
+  student->studentID = id;
+  
   //prompt GPA
   cout << "Enter GPA: " << endl;
-  
+  cin >> gpa;
+  student->GPA = gpa;
 
+  //add to vector pointer
+  vptr->push_back(student);
   
   return;
 }
@@ -61,6 +75,11 @@ void deleteStudent(vector <Student> *vtpr){
 
 
   
+  return;
+}
+
+void quit(){
+
   return;
 }
 
@@ -102,5 +121,6 @@ int main(){
       }
     }
     //terminate program (command = QUIT)
-  return 0;
+    quit();
+    return 0;
 }
