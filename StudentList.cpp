@@ -1,21 +1,75 @@
 /* Author: Allison Delgado
- * Last updated: September 28, 2020
+ * Last updated: Oct 1, 2020
  * StudentList is a program that allows the user to create new student files, print current
  * students, delete student files, and quit the program using the commands ADD, PRINT, DELETE, QUIT
  */
 
 #include <iostream>
 #include <cstring>
+#include <vector>
+
 using namespace std;
+
 
 struct Student {
   char firstName[20]; //max char count for student name is 20
   char lastName[20]; //max char count for last name is 20
-  int studentID = 0;
-  float GPA = 0.00;
+  int studentID;
+  float GPA;
 };
 
+
+void addStudent(vector<Student> *vtpr);
+void deleteStudent(vector<Student> *vtpr);
+void printStudent(vector<Student> *vtpr);
+
+//add a new student
+void addStudent(vector<struct Student> *vtpr){
+
+  Student *student = new Student;
+
+  
+  //prompt first name
+  cout << "Enter first name: " << endl;
+  
+  
+  
+  //prompt last name
+  cout << "Enter last name: " << endl;
+
+  //prompt student id
+  cout << "Enter student id: " << endl;
+
+  //prompt GPA
+  cout << "Enter GPA: " << endl;
+  
+
+  
+  return;
+}
+
+//print out existing students
+void printStudent(vector <Student> *vtpr){
+
+
+  
+  return;
+}
+
+//delete an existing student
+void deleteStudent(vector <Student> *vtpr){
+
+
+  
+  return;
+}
+
+
 int main(){
+
+  //create vectors
+  vector<Student> structVtr; //vector of structs type student
+  vector<Student> *vptr = &structVtr; //vector pointer to vector of structs of type student  
   
   char command[6]; //6 is max amount of letters for this set of commands ("DELETE")
   char commandChar = 'c';
@@ -36,60 +90,17 @@ int main(){
       command[i] = toupper(command[i]);
     }
     
-    while (command != "QUIT"){
-      if (command == "ADD"){
-	add();
+    while (strcmp(command, "QUIT") != 0){ //while command is not quit...
+      if (strcmp(command, "ADD") == 0){
+	addStudent(vptr);
       }
-      else if (command == "PRINT"){
-	print();
+      else if (strcmp(command, "PRINT") == 0){
+	printStudent(vptr);
       }
-      else if (command == "DELETE"){
-	delete();
+      else if (strcmp(command, "DELETE") == 0){
+	deleteStudent(vptr);
       }
     }
     //terminate program (command = QUIT)
   return 0;
-}
-
-
-void add(){
-  
-  //create new struct
-  Student student1;
-  struct* structPtr = &student1;
-  vector<Student> structVtr = &structPtr;
-  vector* vectorPtr = &structPtr;
-  
-  //prompt first name
-  cout << "Enter first name: " << endl;
-  cin.get(name, 20);
-  cin.get();
-  Student.firstName = name;
-  
-  //prompt last name
-  cout << "Enter last name: " << endl;
-
-  //prompt student id
-  cout << "Enter student id: " << endl;
-
-  //prompt GPA
-  cout << "Enter GPA: " << endl;
-  
-
-  
-  return;
-}
-
-void print(){
-
-
-  
-  return;
-}
-
-void delete(){
-
-
-  
-  return;
 }
