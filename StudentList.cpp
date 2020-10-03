@@ -20,7 +20,7 @@ struct Student {
 
 
 void addStudent(vector<Student> *vptr);
-void deleteStudent(vector<Student> *vptr);
+void deleteStudent(vector<Student> *vptr, studentID);
 void printStudent(vector<Student> *vptr);
 void quit();
 
@@ -50,11 +50,13 @@ void addStudent(vector<Student> *vptr){
   //prompt student id
   cout << "Enter student id: " << endl;
   cin >> id;
+  cin.get();
   student->studentID = id;
   
   //prompt GPA
   cout << "Enter GPA: " << endl;
   cin >> gpa;
+  cin.get();
   student->GPA = gpa;
 
   //add to vector pointer
@@ -72,8 +74,9 @@ void printStudent(vector <Student> *vptr){
 }
 
 //delete an existing student
-void deleteStudent(vector <Student> *vptr){
-
+void deleteStudent(vector <Student> *vptr, studentID){
+  
+  
 
   
   return;
@@ -94,23 +97,26 @@ int main(){
   char command[6]; //6 is max amount of letters for this set of commands ("DELETE")
   char commandChar = 'c';
   cout << "Welcome to Student List. Would you like to hear a list of commands? (Y/N)" << endl;
+  int idnum = 0; //temp variable for student ID
+  
   cin >> commandChar;
+  cin.get();
   if (commandChar == 'Y'){
     cout << "To add a new student, type ADD" << endl;
     cout << "To delete an existing student, type DELETE" << endl;
     cout << "To print current students, type PRINT" << endl;
     cout << "To quit the program, type QUIT" << endl;
   }
+  while (strcmp(command, "QUIT") != 0){ //while command is not quit...
     cout << "Enter a command." << endl;
     cin.get(command, 6);
     cin.get();
-    
+
     //format to all uppercase
     for (int i = 0; i < strlen(command); i++){
       command[i] = toupper(command[i]);
     }
-    
-    while (strcmp(command, "QUIT") != 0){ //while command is not quit...
+
       if (strcmp(command, "ADD") == 0){
 	addStudent(vptr);
       }
@@ -118,7 +124,9 @@ int main(){
 	printStudent(vptr);
       }
       else if (strcmp(command, "DELETE") == 0){
-	deleteStudent(vptr);
+	cout << "Enter the ID number of the student you would like to delete" << endl;
+	cin >> idnum;
+	deleteStudent(vptr, idnum);
       }
     }
     //terminate program (command = QUIT)
