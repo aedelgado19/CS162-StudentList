@@ -7,6 +7,7 @@
 #include <iostream>
 #include <cstring>
 #include <vector>
+#include <iomanip>
 
 using namespace std;
 
@@ -87,11 +88,14 @@ void addStudent(vector<Student> *vptr){
 
 //print out existing students
 void printStudent(vector <Student> *vptr){
+  //gpa print precision settings
+  cout << fixed;
+  cout << setprecision(2); //2 decimal points
+
   //learned how iterators work from cplusplus.com
   for(vector<Student>::iterator index = vptr->begin(); index != vptr->end(); ++index){
-    cout << "\n" << index->firstName << " " << index->lastName << endl;
-    cout << "student ID: " << index->studentID << endl;
-    cout << "GPA: " << index->GPA << endl;
+    cout << "\n" << index->firstName << " " << index->lastName << ", " << index->studentID <<
+      ", " << index->GPA << endl;
   }
   return;
 }
