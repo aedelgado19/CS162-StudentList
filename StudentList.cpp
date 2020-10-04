@@ -105,6 +105,7 @@ void deleteStudent(vector <Student> *vptr, int studentID){
   for(vector<Student>::iterator index = vptr->begin(); index != vptr->end(); ++index){
     if (index->studentID == studentID){
       vptr->erase(index);
+      return;
     }
   }
   
