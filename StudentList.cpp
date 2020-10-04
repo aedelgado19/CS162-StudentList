@@ -20,10 +20,19 @@ struct Student {
 
 
 void addStudent(vector<Student> *vptr);
-void deleteStudent(vector<Student> *vptr, studentID);
+void deleteStudent(vector<Student> *vptr, int studentID);
 void printStudent(vector<Student> *vptr);
+bool isUnique(int id);
 void quit();
 
+bool isUnique(int id){
+  //checks if student ID entered in addStudent function is unique
+  if (id ){
+    return false;
+  }
+
+  return false;
+}
 
 //add a new student
 void addStudent(vector<Student> *vptr){
@@ -48,10 +57,19 @@ void addStudent(vector<Student> *vptr){
   strcpy(student->lastName, lastName); //destination, source
   
   //prompt student id
-  cout << "Enter student id: " << endl;
-  cin >> id;
-  cin.get();
-  student->studentID = id;
+  
+    cout << "Enter student id: " << endl;
+    cin >> id;
+    cin.get();
+    isUnique(int id);
+    if (isUnique == true){
+      student->studentID = id;
+    } else {
+      //error out
+      cout << "Error: Student ID already exists." << endl;
+      delete student;
+      return;
+    }
   
   //prompt GPA
   cout << "Enter GPA: " << endl;
@@ -67,17 +85,22 @@ void addStudent(vector<Student> *vptr){
 
 //print out existing students
 void printStudent(vector <Student> *vptr){
-
-
-  
+  //learned how iterators work from cplusplus.com
+  for(vector<Student>::iterator index = vptr->begin(); index != vptr->end(); ++index){
+    cout << "\n" << index->firstName << " " << index->lastName << endl;
+    cout << "student ID: " << index->studentID << endl;
+    cout << "GPA: " << index->GPA << endl;
+  }
   return;
 }
 
 //delete an existing student
-void deleteStudent(vector <Student> *vptr, studentID){
-  
-  
-
+void deleteStudent(vector <Student> *vptr, int studentID){
+  for(vector<Student>::iterator index = vptr->begin(); index != vptr->end(); ++index){
+    if (index->studentID == studentID){
+      vptr->erase(index);
+    }
+  }
   
   return;
 }
@@ -94,7 +117,7 @@ int main(){
   vector<Student> structVtr; //vector of structs type student
   vector<Student> *vptr = &structVtr; //vector pointer to vector of structs of type student  
   
-  char command[6]; //6 is max amount of letters for this set of commands ("DELETE")
+  char command[7]; //6 is max amount of letters for this set of commands ("DELETE")
   char commandChar = 'c';
   cout << "Welcome to Student List. Would you like to hear a list of commands? (Y/N)" << endl;
   int idnum = 0; //temp variable for student ID
@@ -109,7 +132,7 @@ int main(){
   }
   while (strcmp(command, "QUIT") != 0){ //while command is not quit...
     cout << "Enter a command." << endl;
-    cin.get(command, 6);
+    cin.get(command, 7);
     cin.get();
 
     //format to all uppercase
@@ -126,6 +149,7 @@ int main(){
       else if (strcmp(command, "DELETE") == 0){
 	cout << "Enter the ID number of the student you would like to delete" << endl;
 	cin >> idnum;
+	cin.get();
 	deleteStudent(vptr, idnum);
       }
     }
