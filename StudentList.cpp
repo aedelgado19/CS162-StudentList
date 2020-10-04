@@ -1,5 +1,5 @@
 /* Author: Allison Delgado
- * Last updated: Oct 1, 2020
+ * Last updated: Oct 4, 2020
  * StudentList is a program that allows the user to create new student files, print current
  * students, delete student files, and quit the program using the commands ADD, PRINT, DELETE, QUIT
  */
@@ -9,7 +9,6 @@
 #include <vector>
 
 using namespace std;
-
 
 struct Student {
   char firstName[20]; //max char count for student name is 20
@@ -22,16 +21,18 @@ struct Student {
 void addStudent(vector<Student> *vptr);
 void deleteStudent(vector<Student> *vptr, int studentID);
 void printStudent(vector<Student> *vptr);
-bool isUnique(int id);
+bool isUnique(vector<Student> *vptr, int id);
+bool isCommandLegal(char*command);
 void quit();
 
-bool isUnique(int id){
+bool isUnique(vector<Student> *vptr, int id){
   //checks if student ID entered in addStudent function is unique
-  if (id ){
-    return false;
+  for(vector<Student>::iterator index = vptr->begin(); index != vptr->end(); ++index){
+    if (index->studentID == id){
+      return false;
+    }
   }
-
-  return false;
+  return true;
 }
 
 //add a new student
@@ -61,12 +62,13 @@ void addStudent(vector<Student> *vptr){
     cout << "Enter student id: " << endl;
     cin >> id;
     cin.get();
-    isUnique(int id);
-    if (isUnique == true){
+    bool unique = isUnique(vptr, id);
+    if (unique == true){
       student->studentID = id;
     } else {
       //error out
       cout << "Error: Student ID already exists." << endl;
+      cout << "Cannot add student.. try again." << endl;
       delete student;
       return;
     }
@@ -110,6 +112,21 @@ void quit(){
   return;
 }
 
+bool isCommandLegal(char*command){
+  if (strcmp(command, "ADD") == 0){
+    return true;
+  }
+  if (strcmp(command, "DELETE") == 0){
+    return true;
+  }
+  if (strcmp(command, "QUIT") == 0){
+    return true;
+  }
+  if (strcmp(command, "PRINT") == 0){
+    return true;
+  }
+  return false;
+}
 
 int main(){
 
@@ -117,28 +134,26 @@ int main(){
   vector<Student> structVtr; //vector of structs type student
   vector<Student> *vptr = &structVtr; //vector pointer to vector of structs of type student  
   
-  char command[7]; //6 is max amount of letters for this set of commands ("DELETE")
-  char commandChar = 'c';
-  cout << "Welcome to Student List. Would you like to hear a list of commands? (Y/N)" << endl;
+  char command[7]; //6 is max amount of letters for this set of commands ("DELETE") + 1 null
+
+  cout << "Welcome to Student List. To add, type ADD. To delete, type DELETE." << endl;
+  cout << "To print existing students, type PRINT. To quit, type QUIT." << endl;
   int idnum = 0; //temp variable for student ID
-  
-  cin >> commandChar;
-  cin.get();
-  if (commandChar == 'Y'){
-    cout << "To add a new student, type ADD" << endl;
-    cout << "To delete an existing student, type DELETE" << endl;
-    cout << "To print current students, type PRINT" << endl;
-    cout << "To quit the program, type QUIT" << endl;
-  }
-  while (strcmp(command, "QUIT") != 0){ //while command is not quit...
+
+  while (strcmp(command, "QUIT") != 0){ //while command is not quit...  
+
+    //get user command
     cout << "Enter a command." << endl;
     cin.get(command, 7);
     cin.get();
-
     //format to all uppercase
     for (int i = 0; i < strlen(command); i++){
       command[i] = toupper(command[i]);
     }
+  
+    //check to see that command is legal
+    bool legal = isCommandLegal(command);
+    if (legal == true){
 
       if (strcmp(command, "ADD") == 0){
 	addStudent(vptr);
@@ -153,7 +168,8 @@ int main(){
 	deleteStudent(vptr, idnum);
       }
     }
-    //terminate program (command = QUIT)
-    quit();
-    return 0;
+  }
+  //terminate program (command = QUIT)
+  quit();
+  return 0;
 }
