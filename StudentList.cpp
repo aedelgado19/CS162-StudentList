@@ -60,19 +60,19 @@ void addStudent(vector<Student> *vptr){
   
   //prompt student id
   
-    cout << "Enter student id: " << endl;
-    cin >> id;
-    cin.get();
-    bool unique = isUnique(vptr, id);
-    if (unique == true){
-      student->studentID = id;
-    } else {
-      //error out
-      cout << "Error: Student ID already exists." << endl;
-      cout << "Cannot add student.. try again." << endl;
-      delete student;
-      return;
-    }
+  cout << "Enter student id: " << endl;
+  cin >> id;
+  cin.get();
+  bool unique = isUnique(vptr, id);
+  if (unique == true){
+    student->studentID = id;
+  } else {
+    //error out
+    cout << "Error: Student ID already exists." << endl;
+    cout << "Cannot add student.. try again." << endl;
+    delete student;
+    return;
+  }
   
   //prompt GPA
   cout << "Enter GPA: " << endl;
@@ -102,21 +102,24 @@ void printStudent(vector <Student> *vptr){
 
 //delete an existing student
 void deleteStudent(vector <Student> *vptr, int studentID){
+  //create a vector iterator
   for(vector<Student>::iterator index = vptr->begin(); index != vptr->end(); ++index){
+    //if student ID in index matches the id passed in..
     if (index->studentID == studentID){
       vptr->erase(index);
       return;
     }
-  }
-  
+  }  
   return;
 }
 
+//quits program
 void quit(){
-
+  cout << "Thank you for using StudentList. Bye!" << endl;
   return;
 }
 
+//compares if command given is one of the 4 possible commands
 bool isCommandLegal(char*command){
   if (strcmp(command, "ADD") == 0){
     return true;
@@ -130,6 +133,7 @@ bool isCommandLegal(char*command){
   if (strcmp(command, "PRINT") == 0){
     return true;
   }
+  //else it is not one of the 4 commands
   return false;
 }
 
